@@ -1,5 +1,5 @@
 default: &default
-  adapter: sqlite3
+  adapter: postgresql
   pool: 5
   timeout: 5000
 
@@ -13,4 +13,3 @@ development:
 test:
   <<: *default
   database: db/do_this_test.sqlite3
-
