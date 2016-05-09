@@ -21,10 +21,8 @@ end
 
 group :test, :development do
   gem 'ffaker'
-  gem 'sqlite3'
 end
 
 group :production do
-  gem 'pg'
   gem 'rails_12factor'
 end
