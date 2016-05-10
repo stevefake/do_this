@@ -28,7 +28,7 @@ module DoThis
     # config.serve_static_assets = true
     config.serve_static_files = true
 
-    config.assets.initialize_on_precompile = false
+    # config.assets.initialize_on_precompile = false
 
     config.generators do |g|
        g.view_specs false
