@@ -16,11 +16,9 @@
 //= require turbolinks
 //= require_tree .
 
-
-
 var markersArray = [];
-var SF_LAT = 37.7435841;
-var SF_LNG = -122.4897851;
+var SCHOOL_LAT = 38.9212429;
+var SCHOOL_LNG = -77.0339259;
 var QUERY_DELAY = 400;
 var inactive = false;
 
@@ -34,7 +32,7 @@ $(document).ready(function() {
  */
 var initialize = function() {
   var mapOptions = {
-    center: new google.maps.LatLng(SF_LAT, SF_LNG),
+    center: new google.maps.LatLng(SCHOOL_LAT, SCHOOL_LNG),
     zoom: 12,
 
     // hide controls
