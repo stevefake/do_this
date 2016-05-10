@@ -1,6 +1,7 @@
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
+# require 'yelp'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -22,5 +23,15 @@ module DoThis
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    # for heroku
+    # config.serve_static_assets = true
+    config.serve_static_files
+
+    config.generators do |g|
+       g.view_specs false
+       g.helper_specs false
+    end
+
   end
 end

@@ -1,2 +1,51 @@
 <h1>DoThis!</h1>
-<p>Are you bored or hungry?</p>
+<p>Are you bored, or hungry?</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Restaurant</th>
+      <th>Activity</th>
+      <th>Map</th>
+      <th>Map</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <script type="text/javascript" src='assets/application.js'></script>
+      <tr>
+        <td>activity suggestion</td>
+        <td>restaurant suggestion</td>
+        <td>address</td>
+        <td>directions</td>
+      </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <div id='map_canvas'></div>
+      <div id='control_container'></div>
+        <div id='map_search'>
+
+          <form>
+            <div class="form-group">
+              <label for="map_search_submit">Search</label>
+              <input type="text" class="form-control" id="map_search_submit" placeholder="Search">
+            </div>
+
+            <p>
+              <button type="button" class="btn btn-info">
+                <span class="glyphicon glyphicon-search"></span> Search
+              </button>
+            </p>
+          </form>
+        </div>
+
+        <div id='results'>
+        </div>
+    </tr>
+  </thead>
+</table>
