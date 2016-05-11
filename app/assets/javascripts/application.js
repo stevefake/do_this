@@ -17,8 +17,8 @@
 //= require_tree .
 
 var markersArray = [];
-var SCHOOL_LAT = 38.9212429;
-var SCHOOL_LNG = -77.0339259;
+var SCHOOL_LAT = 38.9059372;
+var SCHOOL_LNG = -77.0442446;
 var QUERY_DELAY = 400;
 var inactive = false;
 
@@ -33,7 +33,7 @@ $(document).ready(function() {
 var initialize = function() {
   var mapOptions = {
     center: new google.maps.LatLng(SCHOOL_LAT, SCHOOL_LNG),
-    zoom: 12,
+    zoom: 18,
 
     // hide controls
     panControl: false,
