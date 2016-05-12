@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @hungry.name %>
+</p>
+
+<p>
+  <strong>Rating:</strong>
+  <%= @hungry.rating %>
+</p>
+
+<p>
+  <strong>Reviews count:</strong>
+  <%= @hungry.reviews_count %>
+</p>
+
+<p>
+  <strong>Image url:</strong>
+  <%= @hungry.image_url %>
+</p>
+
+<p>
+  <strong>Snippet text:</strong>
+  <%= @hungry.snippet_text %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @hungry.location %>
+</p>
+
+<p>
+  <strong>Yelp:</strong>
+  <%= @hungry.yelp_id %>
+</p>
+
+<%= link_to 'Edit', edit_hungry_path(@hungry) %> |
+<%= link_to 'Back', hungries_path %>

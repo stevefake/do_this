@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Hungry</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Rating</th>
+      <th>Reviews count</th>
+      <th>Image url</th>
+      <th>Snippet text</th>
+      <th>Location</th>
+      <th>Yelp</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @hungries.each do |hungry| %>
+      <tr>
+        <td><%= hungry.name %></td>
+        <td><%= hungry.rating %></td>
+        <td><%= hungry.reviews_count %></td>
+        <td><%= hungry.image_url %></td>
+        <td><%= hungry.snippet_text %></td>
+        <td><%= hungry.location %></td>
+        <td><%= hungry.yelp_id %></td>
+        <td><%= link_to 'Show', hungry %></td>
+        <td><%= link_to 'Edit', edit_hungry_path(hungry) %></td>
+        <td><%= link_to 'Destroy', hungry, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Hungry', new_hungry_path %>

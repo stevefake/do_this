@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
 
+  resources :boreds
+  resources :hungries
   devise_for :users
 
-  root 'welcome#index'
-
+  resources :welcome
   post '/search' => 'welcome#search'
 
+  root 'welcome#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

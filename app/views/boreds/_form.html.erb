@@ -1,0 +1,45 @@
+<%= form_for(@bored) do |f| %>
+  <% if @bored.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@bored.errors.count, "error") %> prohibited this bored from being saved:</h2>
+
+      <ul>
+      <% @bored.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :rating %><br>
+    <%= f.text_field :rating %>
+  </div>
+  <div class="field">
+    <%= f.label :reviews_count %><br>
+    <%= f.text_field :reviews_count %>
+  </div>
+  <div class="field">
+    <%= f.label :image_url %><br>
+    <%= f.text_field :image_url %>
+  </div>
+  <div class="field">
+    <%= f.label :snippet_text %><br>
+    <%= f.text_field :snippet_text %>
+  </div>
+  <div class="field">
+    <%= f.label :location %><br>
+    <%= f.text_field :location %>
+  </div>
+  <div class="field">
+    <%= f.label :yelp_id %><br>
+    <%= f.text_field :yelp_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

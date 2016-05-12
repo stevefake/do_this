@@ -1,0 +1,53 @@
+<p id="notice"><%= notice %></p>
+<script type="text/javascript" src='assets/application.js'></script>
+
+<p>
+  <strong>Name:</strong>
+  <%= @bored.name %>
+</p>
+
+<p>
+  <strong>Rating:</strong>
+  <%= @bored.rating %>
+</p>
+
+<p>
+  <strong>Reviews count:</strong>
+  <%= @bored.reviews_count %>
+</p>
+
+<p>
+  <strong>Image url:</strong>
+  <%= @bored.image_url %>
+</p>
+
+<p>
+  <strong>Snippet text:</strong>
+  <%= @bored.snippet_text %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @bored.location %>
+</p>
+
+<p>
+  <strong>Yelp:</strong>
+  <%= @bored.yelp_id %>
+</p>
+
+<%= link_to 'Edit', edit_bored_path(@bored) %> |
+<%= link_to 'Back', boreds_path %>
+
+<table>
+  <thead>
+    <tr>
+      <div id='map_canvas'></div>
+      <div id='control_container'></div>
+        <div id='map_search'>
+          <div id='results'>
+          </div>
+        </div>
+    </tr>
+  </thead>
+</table>

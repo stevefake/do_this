@@ -1,0 +1,53 @@
+<h1>DoThis!</h1>
+<p>Are you bored, or hungry?</p>
+<script type="text/javascript" src='assets/application.js'></script>
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Restaurant</th>
+        <th>Activity</th>
+        <th>Map</th>
+        <th>Directions</th>
+        <th>Walk time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Crepeaway</td>
+        <td>DC Improv</td>
+        <td>1200 18th Street NW</td>
+        <td>route</td>
+        <td>7 minutes</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td>Ste 600</td>
+        <td>head west</td>
+        <td>set walk speed</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<table>
+  <thead>
+    <tr>
+      <div id='map_canvas'></div>
+      <div id='control_container'></div>
+        <div id='map_search'>
+          <form>
+            <div class="form-group">
+              <label for="map_search_submit"></label>
+              <input type="text" class="form-control" id="map_search_submit" placeholder="Search">
+              <button type="button" class="btn btn-info">
+                <span class="glyphicon glyphicon-search"></span> Search
+              </button>
+            </div>
+          </form>
+          <div id='results'>
+          </div>
+        </div>
+    </tr>
+  </thead>
+</table>
