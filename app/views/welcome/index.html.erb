@@ -15,16 +15,15 @@
       <form>
         <div class="form-group">
           <%= link_to('/boreds/1', method: "get") do %>
-            <%= submit_tag("Bored") %>
-          <% end %>
-        </button>
-
-          <div class="form-group">
+            <%= submit_tag :Bored, class: 'btn btn-success btn-lg' %>
+            <% end %>
+        </div>
+        <div class="form-group">
           <%= link_to(hungries_path, method: "get") do %>
-            <%= submit_tag("Hungry") %>
-          <% end %>
+            <%= submit_tag :Hungry, class: 'btn btn-primary btn-lg' %>
+            <% end %>
+        </div>
 
-          </button>
         </div>
       </form>
     </tbody>

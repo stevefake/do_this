@@ -2,8 +2,8 @@ class BoredsController < ApplicationController
   before_action :set_bored, only: [:show, :edit, :update, :destroy]
 
   def search
-    parameters = { term: params[:term], limit: 1 }
-    render json: Yelp.client.search('Washington DC', parameters)
+    parameters = { term: params['?q=attractions'], limit: 10 } #display only one tho and user can swipe thru for the rest
+    render json: Yelp.client.search('Shake Shack', parameters)
   end
 
   # GET /boreds
@@ -23,7 +23,7 @@ class BoredsController < ApplicationController
     respond_to do |format|
       parameters = { term: params[:term], limit: 1 }
       format.html # show.html.erb
-      format.json { render json: Yelp.client.search('Washington DC', parameters) }
+      format.json { render json: Yelp.client.search('Shake Shack', parameters) }
       # format.json { render json: @bored }
     end
   end

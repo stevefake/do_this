@@ -43,11 +43,16 @@
   <thead>
     <tr>
       <div id='map_canvas'></div>
-      <div id='control_container'></div>
-        <div id='map_search'>
-          <div id='results'>
+        <div id='control_container'></div>
+          <div id='map_search'>
+            <form>
+              <div class="form-group">
+                <label for="map_search_submit"></label>
+                <input type="text" class="form-control" id="map_search_submit" placeholder="Search">
+              </div>
+            </form>
+            <div id='results'></div>
           </div>
-        </div>
     </tr>
   </thead>
 </table>

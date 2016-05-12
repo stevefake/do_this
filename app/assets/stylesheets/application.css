@@ -22,6 +22,16 @@
    padding: 0;
  }
 
+ .form-group {
+   /*background: #c41200;*/
+   /*box-shadow: 2px 2px 3px #999;*/
+   color: #c41200;
+   /*display: inline-block;*/
+   padding: 7px 9px 7px 9px;
+
+ }
+
+
  #map_canvas {
    height: 300px;
    width: 600px;
