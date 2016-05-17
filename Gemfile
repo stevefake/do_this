@@ -15,6 +15,8 @@ gem 'twitter-bootstrap-rails'
 gem 'kaminari'
 gem 'yelp', require: 'yelp'
 gem 'puma'
+gem 'geocoder'
+gem 'font-awesome-rails'
 
 group :development do
   gem 'better_errors'

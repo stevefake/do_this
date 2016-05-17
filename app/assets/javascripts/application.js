@@ -16,6 +16,87 @@
 //= require turbolinks
 //= require_tree .
 
+
+// navbar:
+// $(document).ready(function(){
+//   $('nav navbar-nav').hover(
+//     function(){
+//     $(this).addClass('active');
+//     },
+//     function(){
+//     $(this).removeClass('active');
+//     }
+//   );
+// });
+
+// geolocation:
+src="http://maps.google.com/maps/api/js?sensor=true"
+
+function writeAddressName(latLng) {
+  var geocoder = new google.maps.Geocoder();
+  geocoder.geocode({
+    "location": latLng
+  },
+  function(results, status) {
+    if (status == google.maps.GeocoderStatus.OK)
+      document.getElementById("address").innerHTML = results[0].formatted_address;
+    else
+      document.getElementById("error").innerHTML += "Unable to retrieve your address" + "<br />";
+  });
+}
+
+function geolocationSuccess(position) {
+  var userLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+  // Write the formatted address
+  writeAddressName(userLatLng);
+
+  var myOptions = {
+    zoom : 16,
+    center : userLatLng,
+    mapTypeId : google.maps.MapTypeId.ROADMAP
+  };
+  // Draw the map
+  var mapObject = new google.maps.Map(document.getElementById("map"), myOptions);
+  // Place the marker
+  new google.maps.Marker({
+    map: mapObject,
+    position: userLatLng
+  });
+  // Draw a circle around the user position to have an idea of the current localization accuracy
+  var circle = new google.maps.Circle({
+    center: userLatLng,
+    radius: position.coords.accuracy,
+    map: mapObject,
+    fillColor: '#0000FF',
+    fillOpacity: 0.5,
+    strokeColor: '#0000FF',
+    strokeOpacity: 1.0
+  });
+  mapObject.fitBounds(circle.getBounds());
+}
+
+function geolocationError(positionError) {
+  document.getElementById("error").innerHTML += "Error: " + positionError.message + "<br />";
+}
+
+function geolocateUser() {
+  // If the browser supports the Geolocation API
+  if (navigator.geolocation)
+  {
+    var positionOptions = {
+      enableHighAccuracy: true,
+      timeout: 10 * 1000 // 10 seconds
+    };
+    navigator.geolocation.getCurrentPosition(geolocationSuccess, geolocationError, positionOptions);
+  }
+  else
+    document.getElementById("error").innerHTML += "Your browser doesn't support the Geolocation API";
+}
+
+window.onload = geolocateUser;
+
+
+
 var markersArray = [];
 var SCHOOL_LAT = 38.9059372;
 var SCHOOL_LNG = -77.0442446;
@@ -40,10 +121,63 @@ window.onload = function() {
   var startPos;
   var geoSuccess = function(position) {
     startPos = position;
-    document.getElementById('startLat').innerHTML = startPos.coords.latitude;
-    document.getElementById('startLon').innerHTML = startPos.coords.longitude;
+    // document.getElementById('startLat').innerHTML = startPos.coords.latitude;
+    // document.getElementById('startLon').innerHTML = startPos.coords.longitude;
+  };
+
+
+  var geoError = function(error) {
+    console.log('Error occurred. Error code: ' + error.code);
+    // error.code can be:
+    //   0: unknown error
+    //   1: permission denied
+    //   2: position unavailable (error response from location provider)
+    //   3: timed out
   };
   navigator.geolocation.getCurrentPosition(geoSuccess);
+};
+
+var geolocation = function(map) {
+  // var searchTerm = $('#map_search input[type=text]').val();
+  var searchTerm = $('#map_search tacos').val();
+
+
+  if (inactive === true) { return };
+
+  // post to the search with the search term, take the response data
+  // and process it
+  $.post('/search', { term: searchTerm }, function(data) {
+    inactive = true;
+
+    // do some clean up
+    $('#results').show();
+    $('#results').empty();
+    clearMarkers();
+
+    // iterate through each business in the response capture the data
+    // within a closure.
+    data['businesses'].forEach(function(business, index) {
+      capture(index, map, business);
+    });
+  });
+};
+
+// post to the food with the food term, take the response data
+// and process it
+$.post('/food', { term: foodTerm }, function(data) {
+  inactive = true;
+
+  // do some clean up
+  $('#results').show();
+  $('#results').empty();
+  clearMarkers();
+
+  // iterate through each business in the response capture the data
+  // within a closure.
+  data['businesses'].forEach(function(business, index) {
+    capture(index, map, business);
+  });
+});
 };
 
 
@@ -96,7 +230,7 @@ var bind_controls = function(map) {
   });
 
   // push the search controls onto the map
-  map.controls[google.maps.ControlPosition.TOP_LEFT].push(controlContainer);
+  // map.controls[google.maps.ControlPosition.TOP_LEFT].push(controlContainer);
 }
 
 /**
@@ -106,7 +240,7 @@ var bind_controls = function(map) {
  * param: map - the Google map object
  */
 var search = function(map) {
-  var searchTerm = $('#map_search input[type=text]').val();
+  var searchTerm = $('#map_search input[type=text').val();
 
   if (inactive === true) { return };
 
@@ -216,3 +350,113 @@ var clearMarkers = function() {
 
   markersArray = [];
 };
+
+
+
+// var initialLocation;
+// var siberia = new google.maps.LatLng(60, 105);
+// var newyork = new google.maps.LatLng(40.69847032728747, -73.9514422416687);
+// var browserSupportFlag =  new Boolean();
+
+function initialize() {
+  var myOptions = {
+    zoom: 6,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+  var map = new google.maps.Map(document.getElementById("map"), myOptions);
+
+  // Try W3C Geolocation (Preferred)
+  if(navigator.geolocation) {
+    browserSupportFlag = true;
+    navigator.geolocation.getCurrentPosition(function(position) {
+      initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+      map.setCenter(initialLocation);
+    }, function() {
+      handleNoGeolocation(browserSupportFlag);
+    });
+  }
+  // Browser doesn't support Geolocation
+  else {
+    browserSupportFlag = false;
+    handleNoGeolocation(browserSupportFlag);
+  }
+
+  function handleNoGeolocation(errorFlag) {
+    if (errorFlag == true) {
+      alert("Geolocation service failed.");
+      initialLocation = newyork;
+    } else {
+      alert("Your browser doesn't support geolocation. We've placed you in Siberia.");
+      initialLocation = siberia;
+    }
+    map.setCenter(initialLocation);
+  }
+}
+
+// var userLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+// var myOptions = {
+//   zoom : 16,
+//   center : userLatLng,
+//   mapTypeId : google.maps.MapTypeId.ROADMAP
+// }
+// var mapObject = new google.maps.Map(document.getElementById("map"), myOptions);
+//
+// new google.maps.Marker({map: mapObject, position: userLatLng });
+//
+// var circle = new google.maps.Circle({
+//   center: userLatLng,
+//   radius: position.coords.accuracy,
+//   map: mapObject,
+//   fillColor: '#0000FF',
+//   fillOpacity: 0.5,
+//   strokeColor: '#0000FF',
+//   strokeOpacity: 1.0
+// });
+// mapObject.fitBounds(circle.getBounds());
+//
+// function writeAddressName(latLng) {
+//   var geocoder = new google.maps.Geocoder();
+//   geocoder.geocode({
+//     "location": latLng
+//   },
+//   function(results, status) {
+//     if (status == google.maps.GeocoderStatus.OK)
+//       document.getElementById("address").innerHTML = results[0].formatted_address;
+//     else
+//       document.getElementById("error").innerHTML += "Unable to retrieve your address"  + "<br />";
+//   });
+// }
+
+
+// WALKING DIRECTIONS PLAYGROUND
+// var directionsDisplay;
+// var directionsService = new google.maps.DirectionsService();
+// var map;
+//
+// function initialize() {
+//   directionsDisplay = new google.maps.DirectionsRenderer();
+//   var chicago = new google.maps.LatLng(41.850033, -87.6500523);
+//   var mapOptions = {
+//     zoom:7,
+//     center: chicago
+//   }
+//   map = new google.maps.Map(document.getElementById("map"), mapOptions);
+//   directionsDisplay.setMap(map);
+//   directionsDisplay.setPanel(document.getElementById("directionsPanel"));
+// }
+//
+// function calcRoute() {
+//   var start = document.getElementById("start").value;
+//   var end = document.getElementById("end").value;
+//   var request = {
+//     origin:start,
+//     destination:end,
+//     travelMode: google.maps.TravelMode.DRIVING
+//   };
+//   directionsService.route(request, function(response, status) {
+//     if (status == google.maps.DirectionsStatus.OK) {
+//       directionsDisplay.setDirections(response);
+//     }
+//   });
+// }

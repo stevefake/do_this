@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :directions
   resources :boreds
   resources :hungries
   devise_for :users

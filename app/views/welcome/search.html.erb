@@ -1,0 +1,64 @@
+<% term = params[:term] %>
+<% if term == "food" %>
+  <h1>Eat here!</h1>
+  <p>
+  <h3>Name: <% @results.businesses.first(3).each do |business| %></h3>
+  <%= business.name %>
+  <% end %>
+  <p>
+  <p>
+    <%= @results.businesses[2].name %>
+
+  <p>
+  <%= image_tag(@results.businesses.first.image_url) %>
+  <p>
+  Rating: <%= @results.businesses.first.rating %>
+  <p>
+  Snippet text: <%= @results.businesses.first.snippet_text %>
+  <p>
+  Phone: <%= @results.businesses.first.display_phone %>
+  <p>
+  Business is closed right now?: <%= @results.businesses.first.is_closed %>
+  <p>
+  Address: <%= @results.businesses.first.location.display_address %>
+  <p>
+  Latitude: <%= @results.businesses.first.location.coordinate.latitude %>
+  <p>
+  Longitude: <%= @results.businesses.first.location.coordinate.longitude %>
+  <p>
+  Distance from you: <%= @results.businesses.first.distance %> miles.
+  <p>
+  Business yelp id: <%= @results.businesses.first.id %>
+<% else %> <!-- type == "attractions" -->
+  <h1>Explore this!</h1>
+  <p>
+  <h3><%= @results.businesses.first.name %></h3>
+  <p>
+  <%= image_tag(@results.businesses.first.image_url) %>
+  <p>
+  Rating: <%= @results.businesses.first.rating %>
+  <p>
+  Snippet text: <%= @results.businesses.first.snippet_text %>
+  <p>
+  Phone: <%= @results.businesses.first.display_phone %>
+  <p>
+  Business is closed right now?: <%= @results.businesses.first.is_closed %>
+  <p>
+  Address: <%= @results.businesses.first.location.display_address %>
+  <p>
+  Latitude: <%= @results.businesses.first.location.coordinate.latitude %>
+  <p>
+  Longitude: <%= @results.businesses.first.location.coordinate.longitude %>
+  <p>
+  Distance from you: <%= @results.businesses.first.distance %> miles.
+  <p>
+  Business yelp id: <%= @results.businesses.first.id %>
+<% end %>
+<p>
+<a href="<%= @results.businesses.first.url %>">Details</a> | <a href="/directions">Take me there!</a>
+
+<!-- | Don't suggest this again | Save for later -->
+<!-- persist yelp id to db as string -->
+
+<!-- Person.order("created_on DESC").offset(5).first
+Person.first(3) # returns the first three objects fetched by SELECT * FROM people ORDER BY people.id LIMIT 3 -->

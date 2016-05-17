@@ -2,30 +2,20 @@
 <p>Are you bored, or hungry?</p>
 <script type="text/javascript" src='assets/application.js'></script>
 <div class="table-responsive">
-  <table class="table">
-    <thead>
-      <!-- <tr>
-        <th>Bored</th>
-      </tr>
-      <tr>
-        <th>Hungry</th>
-      </tr> -->
-    </thead>
-    <tbody>
-      <form>
-        <div class="form-group">
-          <%= link_to('/boreds/1', method: "get") do %>
-            <%= submit_tag :Bored, class: 'btn btn-success btn-lg' %>
-            <% end %>
-        </div>
-        <div class="form-group">
-          <%= link_to(hungries_path, method: "get") do %>
-            <%= submit_tag :Hungry, class: 'btn btn-primary btn-lg' %>
-            <% end %>
-        </div>
-
-        </div>
-      </form>
-    </tbody>
-  </table>
+    <div class="form-group">
+      <div>
+      <%= form_tag(search_path) do %>
+        <%= hidden_field_tag(:term, "attractions") %>
+        <%= submit_tag :Bored, class: 'btn btn-success btn-lg' %>
+      <% end %>
+    </div>
+    </div>
+    <div class="form-group">
+      <div>
+      <%= form_tag(search_path) do %>
+        <%= hidden_field_tag(:term, "food") %>
+        <%= submit_tag("Hungry", class: 'btn btn-primary btn-lg') %>
+      <% end %>
+    </div>
+    </div>
 </div>

@@ -1,32 +1,102 @@
 class BoredsController < ApplicationController
   before_action :set_bored, only: [:show, :edit, :update, :destroy]
 
-  def search
-    parameters = { term: params['?q=attractions'], limit: 10 } #display only one tho and user can swipe thru for the rest
-    render json: Yelp.client.search('Shake Shack', parameters)
+  begin
+    client = Yelp::client
+    yelp_places_burst = client.search('lahore , pakistan')
+  rescue Yelp::Error::UnavailableForLocation => e
+    puts e.message
   end
 
   # GET /boreds
   # GET /boreds.json
   def index
-    @boreds = Bored.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @boreds }
+    if params[:geolocation].present?       #call this :attractions ? :geolocation ? for me it's not a search but a geolocation
+      @boreds = Bored.near(params[:geolocation], 1)
+    else
+      @boreds = Bored.all
     end
   end
+
+  def geolocation
+    city = request.location.city
+    country = request.location.country_code
+    parameters = { geoSuccess: params[:geoSuccess], limit: 3 }
+    render json: Yelp.client.search('attractions', parameters)
+  end
+  def search
+    parameters = { term: params[:term], limit: 5 }
+    render json: Yelp.client.search('Washington DC', parameters)
+  end
+  def reviews
+    response = Yelp.client.search(‘San Francisco’)
+    response.businesses[0].rating
+  end
+
+  def yelp
+    @yelp = Yelp.client.search('San Francisco', { term: 'food' })
+
+    # current_user.zip_code.present? ? @zip = current_user.zip_code : @zip = "94101"
+    # parameters = { term: 'auto repair', limit: 9 }
+    # @search = client.search(@zip, parameters)
+    # @geopoint = Yelp::Review::Request::GeoPoint
+    # render json: Yelp::Review::Request::GeoPoint
+  end
+
+
+  # def search
+  #   parameters = { term: params['?q=attractions'], limit: 10 } #display only one tho and user can swipe thru for the rest
+  #   render json: Yelp.client.search('Shake Shack', parameters)
+  # end
+
+  def show
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: Yelp.client.search('Washington DC', parameters) }
+    end
+  end
+  # <% if business.respond_to?(:image_url) %>
+  #   <p><%= image_tag business.image_url %></p>
+  # <% end %>
+
+  # def name
+  #   params[:name]
+  # end
+  # "Welcome <%= params["name"] %>"
+
+
+  # def lorem
+  #   params[:type]
+  # end
+  # <% type = params[:type] %>
+  #   <% if type == "standard" %>
+      # <% end %>
+
+
+
+
+
+  # GET /boreds
+  # GET /boreds.json
+  # def index
+  #   @boreds = Bored.all
+  #
+  #   respond_to do |format|
+  #     format.html # index.html.erb
+  #     format.json { render json: @boreds }
+  #   end
+  # end
 
   # GET /boreds/1
   # GET /boreds/1.json
-  def show
-    respond_to do |format|
-      parameters = { term: params[:term], limit: 1 }
-      format.html # show.html.erb
-      format.json { render json: Yelp.client.search('Shake Shack', parameters) }
-      # format.json { render json: @bored }
-    end
-  end
+  # def show
+  #   respond_to do |format|
+  #     parameters = { term: params[:term], limit: 1 }
+  #     format.html # show.html.erb
+  #     format.json { render json: Yelp.client.search('Shake Shack', parameters) }
+  #     # format.json { render json: @bored }
+  #   end
+  # end
 
   # GET /boreds/new
   def new
@@ -87,4 +157,13 @@ class BoredsController < ApplicationController
     def bored_params
       params.require(:bored).permit(:name, :rating, :reviews_count, :image_url, :snippet_text, :location, :yelp_id)
     end
+
+    def client
+       @client ||= Yelp::Client.new({ consumer_key: ENV['config.consumer_key'],
+        consumer_secret: ENV['config.consumer_secret'],
+        token: ENV['config.token'],
+        token_secret: ENV['config.token_secret']
+      })
+    end
+
 end

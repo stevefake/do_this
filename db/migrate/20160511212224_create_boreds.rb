@@ -8,6 +8,9 @@ class CreateBoreds < ActiveRecord::Migration
       t.string :snippet_text
       t.point :location
       t.string :yelp_id
+      t.string :address
+      t.float :latitude
+      t.float :longitude
 
       t.timestamps null: false
     end
