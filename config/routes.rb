@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'users/new'
+
   # post "/search/:id", :to => "welcome#search"
   # You should not use the `match` method in your router without specifying an HTTP method.
   # If you want to expose your action to both GET and POST, add `via: [:get, :post]` option.

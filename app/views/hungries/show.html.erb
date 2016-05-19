@@ -1,9 +1,10 @@
 <p id="notice"><%= notice %></p>
 
-
-<h3><%= @result.name %></h3>
+<h1><%= @result.name %></h1>
+<div class="background" style="background-image: url(<%=@result.image_url.gsub('ms.jpg', 'o.jpg')%>);">
+</div>
 <p>
-  <%= image_tag(@result.image_url) %>
+<div>
   <p>
   <strong>Rating:</strong> <%= @result.rating %> out of 5, based on <%= @result.review_count %> reviews.
   <p>

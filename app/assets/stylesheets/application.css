@@ -61,9 +61,10 @@ div[style~="background-image"] {
 }*/
 
 .background {
+    height: 200px;
     opacity: 0.3;    /*no good - makes the text opaque too
     /*z-index: -1*/
-    margin-top: -80px;
+    margin-top: -90px;
     margin-left: -55px;
     margin-right: -345px;
     padding-left: 100px;
@@ -119,7 +120,7 @@ div[style~="background-image"] {
 }*/
 
  .table-responsive {
-  margin-top: 30px;
+  margin-top: 20px;
  }
 
  .form-group {
@@ -128,11 +129,12 @@ div[style~="background-image"] {
    /*color: #c41200;*/
    /*display: inline-block;*/
    /*padding: 7px 9px 7px 9px;*/
-   margin-left:20px;
+   /*margin-left:20px;*/
  }
 
  .second-button {
-  margin-left:-22px; /* stopgap fix of undwanted indentation of 'hungry' button */
+   margin-top: -10px;
+  /*margin-left:-20px; /* stopgap fix of undwanted indentation of 'hungry' button */*/
  }
 
  .footer {

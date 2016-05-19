@@ -1,14 +1,11 @@
-<!-- <div class="img" -->
-
 <p id="notice"><%= notice %></p>
 
+<h1><%= @result.name %></h1>
 
-<h3><%= @result.name %></h3>
-<!-- <p> -->
-
-<div class="background" style="background-image: url(<%=@result.image_url%>);">
-
-  <!-- <% image_tag(@result.image_url, class: "background-image") %> <!  size: "300", -->
+<div class="background" style="background-image: url(<%=@result.image_url.gsub('ms.jpg', 'o.jpg')%>);">
+</div>
+<p>
+<div class="content">
 
   <p>
   <strong>Rating:</strong> <%= @result.rating %> out of 5, based on <%= @result.review_count %> reviews.
@@ -19,14 +16,9 @@
   <p>
   <strong>Address:</strong> <%= @result.location.display_address.join(', ') %>
   <p>
-  <!-- Latitude: <% @result.location.coordinate.latitude %> -->
-  <p>
-  <!-- Longitude: <% @result.location.coordinate.longitude %> -->
-  <p>
   <!-- Distance from you: <% @result.distance %> miles. -->
   <p>
   <!-- Business yelp id: <% @result.id %> -->
-
 <p>
   <a href="<%= @result.url %>" target="_blank"><strong>Details</strong></a> |
   <a href="https://www.google.com/maps/dir/My+location/<%= @result.location.display_address.join(',+') %>" target="_blank"><strong>Take me there!</strong></a>
