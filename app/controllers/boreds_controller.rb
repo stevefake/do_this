@@ -1,5 +1,5 @@
 class BoredsController < ApplicationController
-  before_action :set_bored, only: [:show, :edit, :update, :destroy]
+  # before_action :set_bored, only: [:show, :edit, :update, :destroy]
 
   begin
     client = Yelp::client
@@ -49,12 +49,27 @@ class BoredsController < ApplicationController
   #   render json: Yelp.client.search('Shake Shack', parameters)
   # end
 
+  # def geo
+  #   @lng_lat = [params[:lng], params[:lat]]
+  # end
+
   def show
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: Yelp.client.search('Washington DC', parameters) }
-    end
+    session[:coordinates] = {
+      latitude: (params['latitude'] || session['coordinates']['latitude']).to_f,
+      longitude: (params['longitude'] || session['coordinates']['longitude']).to_f
+    }
+    session[:choice] = { term: params['term'] || session['choice']['term'], limit: 6 }
+    @results = Yelp.client.search_by_coordinates(session[:coordinates], session[:choice])
+    index = params[:id].to_i - 1
+    @result = @results.businesses[index]
   end
+
+  # def show
+  #   respond_to do |format|
+  #     format.html # index.html.erb
+  #     format.json { render json: Yelp.client.search('Washington DC', parameters) }
+  #   end
+  # end
   # <% if business.respond_to?(:image_url) %>
   #   <p><%= image_tag business.image_url %></p>
   # <% end %>
@@ -149,14 +164,14 @@ class BoredsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_bored
-      @bored = Bored.find(params[:id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def bored_params
-      params.require(:bored).permit(:name, :rating, :reviews_count, :image_url, :snippet_text, :location, :yelp_id)
-    end
+    # def set_bored
+    #   @bored = Bored.find(params[:id])
+    # end
+    #
+    # # Never trust parameters from the scary internet, only allow the white list through.
+    # def bored_params
+    #   params.require(:bored).permit(:name, :rating, :reviews_count, :image_url, :snippet_text, :location, :yelp_id)
+    # end
 
     def client
        @client ||= Yelp::Client.new({ consumer_key: ENV['config.consumer_key'],

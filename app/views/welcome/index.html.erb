@@ -1,21 +1,98 @@
 <h1>DoThis!</h1>
 <p>Are you bored, or hungry?</p>
 <script type="text/javascript" src='assets/application.js'></script>
+
+    <script>
+      function writeAddressName(latLng) {
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({
+          "location": latLng
+        },
+        function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK){
+            // console.log(latLng.lat());
+            // console.log(latLng.lng());
+            $('input#latitude').val(latLng.lat());
+            $('input#longitude').val(latLng.lng());
+            document.getElementById("address").innerHTML = latLng;
+          }else{
+            document.getElementById("error").innerHTML += "Unable to retrieve your address" + "<br />";
+          }
+        });
+      }
+
+      function geolocationSuccess(position) {
+        var userLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        // Write the formatted address
+        writeAddressName(userLatLng);
+
+        var myOptions = {
+          zoom : 16,
+          center : userLatLng,
+          mapTypeId : google.maps.MapTypeId.ROADMAP
+        };
+        // Draw the map
+        var mapObject = new google.maps.Map(document.getElementById("map"), myOptions);
+        // Place the marker
+        new google.maps.Marker({
+          map: mapObject,
+          position: userLatLng
+        });
+        // Draw a circle around the user position to have an idea of the current localization accuracy
+        var circle = new google.maps.Circle({
+          center: userLatLng,
+          radius: position.coords.accuracy,
+          map: mapObject,
+          fillColor: '#0000FF',
+          fillOpacity: 0.5,
+          strokeColor: '#0000FF',
+          strokeOpacity: 1.0
+        });
+        mapObject.fitBounds(circle.getBounds());
+      }
+
+      function geolocationError(positionError) {
+        document.getElementById("error").innerHTML += "Error: " + positionError.message + "<br />";
+      }
+
+      function geolocateUser() {
+        // If the browser supports the Geolocation API
+        if (navigator.geolocation)
+        {
+          var positionOptions = {
+            enableHighAccuracy: true,
+            timeout: 10 * 1000 // 10 seconds
+          };
+          navigator.geolocation.getCurrentPosition(geolocationSuccess, geolocationError, positionOptions);
+        }
+        else
+          document.getElementById("error").innerHTML += "Your browser doesn't support the Geolocation API";
+      }
+
+      window.onload = geolocateUser;
+    </script>
+
 <div class="table-responsive">
-    <div class="form-group">
-      <div>
-      <%= form_tag(search_path) do %>
+  <div class="form-group">
+    <div>
+      <%= form_tag(bored_path(:id), method: "get") do %>
         <%= hidden_field_tag(:term, "attractions") %>
+        <%= hidden_field_tag :latitude %>
+        <%= hidden_field_tag :longitude %>
         <%= submit_tag :Bored, class: 'btn btn-success btn-lg' %>
       <% end %>
     </div>
-    </div>
+  </div>
+  <div class="second-button">
     <div class="form-group">
       <div>
-      <%= form_tag(search_path) do %>
-        <%= hidden_field_tag(:term, "food") %>
-        <%= submit_tag("Hungry", class: 'btn btn-primary btn-lg') %>
-      <% end %>
+        <%= form_tag(hungry_path(:id), method: "get") do %>
+          <%= hidden_field_tag(:term, "food") %>
+          <%= hidden_field_tag :latitude %>
+          <%= hidden_field_tag :longitude %>
+          <%= submit_tag("Hungry", class: 'btn btn-primary btn-lg') %>
+        <% end %>
+      </div>
     </div>
-    </div>
+  </div>
 </div>

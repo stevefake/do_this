@@ -37,7 +37,6 @@
     <![endif]-->
 
     <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAPS']}" %>
-    <script type='text/javascript' src='assets/application.js'></script>
   </head>
   <body>
 
@@ -53,10 +52,10 @@
           <div style="display:inline"; class="navbar-collapse collapse navbar-responsive-collapse">
             <ul class="nav navbar-nav">
               <% if current_user %>
-              <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+              <%= link_to "Logout", destroy_user_session_path, method: :delete, class: 'btn btn-xs btn-info' %>
               <% else %>
-              <li><%= link_to "Login", new_user_session_path %></li>
-              <li><%= link_to "Signup", new_user_registration_path %></li>
+              <%= link_to "Login", new_user_session_path, class: 'btn btn-xs btn-info' %>
+              <%= link_to "Signup", new_user_registration_path, class: 'btn btn-xs btn-info' %>
               <% end %>
             </ul>
           </div>
@@ -82,9 +81,9 @@
         <!-- </div><!/span-->
       </div><!--/row-->
 
-      <footer>
+      <footer class="footer">
         <p>&copy; DoThis! 2016</p>
-        <p>Powered by Google Maps and Yelp</p>
+        <p>Powered by <i class="fa fa-google" aria-hidden="true"></i>oogle Maps and <i class="fa fa-yelp" aria-hidden="true"></i>Yelp</p>
       </footer>
 
     </div> <!-- /container -->

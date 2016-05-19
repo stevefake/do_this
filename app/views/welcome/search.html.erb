@@ -3,11 +3,11 @@
   <h1>Eat here!</h1>
   <p>
   <h3>Name: <% @results.businesses.first(3).each do |business| %></h3>
-  <%= business.name %>
+  <% business.name %>
   <% end %>
   <p>
   <p>
-    <%= @results.businesses[2].name %>
+    <%= @results.businesses[0].name %>
 
   <p>
   <%= image_tag(@results.businesses.first.image_url) %>
