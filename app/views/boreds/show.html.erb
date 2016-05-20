@@ -1,33 +1,14 @@
 <p id="notice"><%= notice %></p>
 
-<h1><%= @result.name %></h1>
-
-<div class="background" style="background-image: url(<%=@result.image_url.gsub('ms.jpg', 'o.jpg')%>);">
-</div>
-<p>
-<div class="content">
+<h1><%= @bored.id %></h1>
 
   <p>
-  <strong>Rating:</strong> <%= @result.rating %> out of 5, based on <%= @result.review_count %> reviews.
+  <strong>Address:</strong>
   <p>
-  <strong>Hot take:</strong> <%= @result.snippet_text %>
-  <p>
-  <strong>Phone:</strong> <%= @result.display_phone %>
-  <p>
-  <strong>Address:</strong> <%= @result.location.display_address.join(', ') %>
-  <p>
-  <!-- Distance from you: <% @result.distance %> miles. -->
-  <p>
-  <!-- Business yelp id: <% @result.id %> -->
-<p>
-  <a href="<%= @result.url %>" target="_blank"><strong>Details</strong></a> |
-  <a href="https://www.google.com/maps/dir/My+location/<%= @result.location.display_address.join(',+') %>" target="_blank"><strong>Take me there!</strong></a>
-<p>
-  <%= link_to fa_icon('arrow-left', text: 'Back'), bored_path(params[:id].to_i - 1), class: 'btn btn-sm btn-default' %>
-  |
-  <%= link_to fa_icon('arrow-right', text: 'Next'), bored_path(params[:id].to_i + 1), class: 'btn btn-sm btn-default' %> <!-- need to add a safety to prevent +6 -->
-<p>
+  <%= @bored.latitude %>
+  <%= @bored.longitude %>
 
- <!-- @bored_result.name  is a __ minute walk from you. -->
-<!-- Details | Take me there! | Don't suggest this again | Save for later -->
-</div>
+    <p>
+    <% if @bored.location.nil? == false %>
+    <%= @bored.location %>
+    <% end %>

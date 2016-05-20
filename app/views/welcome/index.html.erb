@@ -73,30 +73,16 @@
       window.onload = geolocateUser;
     </script>
 
-    <!-- if (navigator.geolocation.getCurrentPosition(geolocationSuccess))
-    {
-      $('input[type=submit]').prop('disabled', false);
-    };
-    else {
-      $('input[type=submit]').prop('disabled', true);
-    } -->
-    <!-- $('input[type="submit"]').removeAttr('disabled'); -->
-
-    <!-- if (navigator.geolocation.getCurrentPosition(geolocationSuccess()) {
-      document.getElementById('btn btn-primary btn-block').disabled = false;
-    }else {
-      document.getElementById('btn btn-primary btn-block').disabled = true;
-    } -->
 <% fa_icon("spinner spin") %>
 <div class="col-lg-2">
   <div class="table-responsive">
     <div class="form-group">
       <div>
-        <%= form_tag(bored_path(:id), method: "get") do %>
+        <%= form_tag(attractions_pick_path, method: "get") do %>
           <%= hidden_field_tag(:term, "attractions") %>
           <%= hidden_field_tag :latitude %>
           <%= hidden_field_tag :longitude %>
-          <%= submit_tag :Bored, class: 'btn btn-success btn-block', disabled: true %> <!-- disabled -->
+          <%= submit_tag :Bored, class: 'btn btn-success btn-block', disabled: true %>
         <% end %>
       </div>
     </div>

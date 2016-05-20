@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   #   Do: get "controller#action"
 
   resources :sessions
-
+  get "attractions/pick" => "attractions#show"
   get "/boreds/:id", to: "boreds#show"
   get "/hungries/:id", to: "hungries#show"
   resources :directions
