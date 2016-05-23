@@ -10,12 +10,15 @@ Rails.application.routes.draw do
   #   Do: get "controller#action"
 
   resources :sessions
-  get "attractions/pick" => "attractions#show"
-  get "/boreds/:id", to: "boreds#show"
-  get "/hungries/:id", to: "hungries#show"
+  get "pick/:i" => "pick#show" # "attractions#show"
+  get "attractions/pick" => "pick#show"
+  # get "/boreds/:id", to: "boreds#show"
+  # get "/hungries/:id", to: "hungries#show"
+  resources :pick
+  resources :attractions
   resources :directions
-  resources :boreds
-  resources :hungries
+  # resources :boreds
+  # resources :hungries
   devise_for :users
 
   get "/welcome/:id", to: "welcome#show"

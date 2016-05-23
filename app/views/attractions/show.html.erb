@@ -1,41 +1,12 @@
-<p id="notice"><%= notice %></p>
-
-<h1><%= @result.name %></h1>
-
-<div class="background" style="background-image: url(<%=@result.image_url.gsub('ms.jpg', 'o.jpg')%>);">
-</div>
+<h1><%= @attraction.yelp_id %></h1>
 <p>
-<div class="content">
+ <!-- for location in @attraction.nearbys(1)
+ link_to location.address, location  location.distance
+ end  -->
 
   <p>
-  <strong>Rating:</strong> <%= @result.rating %> out of 5, based on <%= @result.review_count %> reviews.
+  <strong>Coordinates:</strong>
   <p>
-  <strong>Hot take:</strong> <%= @result.snippet_text %>
-  <p>
-  <strong>Phone:</strong> <%= @result.display_phone %>
-  <p>
-  <strong>Address:</strong> <%= @result.location.display_address.join(', ') %>
-  <p>
-  <!-- Distance from you: <% @result.distance %> miles. -->
-  <p>
- <% @location = [] %>
- <% @location << @result.location.coordinate.latitude %>
- <% @location << @result.location.coordinate.longitude %>
-
-<p>
-  <a href="<%= @result.url %>" target="_blank"><strong>Details</strong></a> |
-  <a href="https://www.google.com/maps/dir/My+location/<%= @result.location.display_address.join(',+') %>" target="_blank"><strong>Take me there!</strong></a>
-  |
-  <% if current_user %>
-  <strong><%= link_to "Don't suggest this again", boreds_path(bored: { yelp_id: @result.id, location: @location }), method: :post %></strong>
-  |
-  <strong><%= link_to "Save for later", boreds_path(bored: { yelp_id: @result.id, location: [@result.location.coordinate.latitude, @result.location.coordinate.longitude] }), method: :post %></strong>
-  <% end %>
-
-<p>
-  <%= link_to fa_icon('arrow-left', text: 'Back'), bored_path(params[:id].to_i - 1), class: 'btn btn-sm btn-default' %>
-  |
-  <%= link_to fa_icon('arrow-right', text: 'Next'), bored_path(params[:id].to_i + 1), class: 'btn btn-sm btn-default' %> <!-- need to add a safety to prevent +6 -->
-
- <!-- @bored_result.name  is a __ minute walk from you. -->
-</div>
+    <% if @attraction.location.nil? == false %>
+    <%= @attraction.location %>
+    <% end %>

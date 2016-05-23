@@ -1,91 +1,61 @@
 <h1>Walking Directions</h1>
-
-<h2>Geolocation</h2>
 <div id="map"></div>
-<p><b>Address</b>: <span id="address"></span></p>
+<!-- <p><b>Your current address</b>: <span id="start"></span></p> -->
+<p><b>Destination address</b>: <span id="end"><%= params[:destination_address] %></span></p>
+<!-- <p><b>Destination LatLng</b>: <span id="end">'<% params[:destinationLatLng].to_s %>'</span></p> -->
 <p id="error"></p>
 
-
+<%= javascript_tag do %>
+  <!-- window.destinationAddress = <%= raw params[:destination_address].to_json %>; -->
+  window.destinationLatLng = '<%= raw params[:destinationLatLng].to_s %>';
+<% end %>
 <!-- google.maps.TravelMode.WALKING -->
-
-
-<div>
-<strong>Mode of Travel: </strong>
-<select id="mode" onchange="calcRoute();">
-<!-- <option value="DRIVING">Driving</option> -->
-<option value="WALKING">Walking</option>
-<!-- <option value="BICYCLING">Bicycling</option>
-<option value="TRANSIT">Transit</option> -->
-</select>
-<div id="map" style="float:left;width:70%; height:100%"></div>
 <div id="directionsPanel" style="float:right;width:30%;height 100%"></div>
-</div>
-
 
     <script>
-      function writeAddressName(latLng) {
-        var geocoder = new google.maps.Geocoder();
-        geocoder.geocode({
-          "location": latLng
-        },
-        function(results, status) {
-          if (status == google.maps.GeocoderStatus.OK)
-            document.getElementById("address").innerHTML = results[0].formatted_address;
-          else
-            document.getElementById("error").innerHTML += "Unable to retrieve your address" + "<br />";
-        });
-      }
+    if (navigator.geolocation) { //Checks if browser supports geolocation
+     navigator.geolocation.getCurrentPosition(function (position) {                                                              //This gets the
+       var latitude = position.coords.latitude;                    //users current
+       var longitude = position.coords.longitude;                 //location
+       var coords = new google.maps.LatLng(latitude, longitude); //Creates variable for map coordinates
+       var directionsService = new google.maps.DirectionsService();
+       var directionsDisplay = new google.maps.DirectionsRenderer();
+       var mapOptions = //Sets map options
+       {
+         zoom: 15,  //Sets zoom level (0-21)
+         center: coords, //zoom in on users location
+         mapTypeControl: true, //allows you to select map type eg. map or satellite
+         navigationControlOptions:
+         {
+           style: google.maps.NavigationControlStyle.SMALL //sets map controls size eg. zoom
+         },
+         mapTypeId: google.maps.MapTypeId.ROADMAP //sets type of map Options:ROADMAP, SATELLITE, HYBRID, TERRIAN
+       };
+       map = new google.maps.Map( /*creates Map variable*/ document.getElementById("map"), mapOptions /*Creates a new map using the passed optional parameters in the mapOptions parameter.*/);
+       directionsDisplay.setMap(map);
+       directionsDisplay.setPanel(document.getElementById('panel'));
+       var request = {
+         origin: coords,
+         destination: destinationLatLng,
+         travelMode: google.maps.DirectionsTravelMode.WALKING
+       };
 
-      function geolocationSuccess(position) {
-        var userLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-        // Write the formatted address
-        writeAddressName(userLatLng);
+       directionsService.route(request, function (response, status) {
+         if (status == google.maps.DirectionsStatus.OK) {
+           directionsDisplay.setDirections(response);
+         }
+       });
+     });
+   }
 
-        var myOptions = {
-          zoom : 16,
-          center : userLatLng,
-          mapTypeId : google.maps.MapTypeId.ROADMAP
-        };
-        // Draw the map
-        var mapObject = new google.maps.Map(document.getElementById("map"), myOptions);
-        // Place the marker
-        new google.maps.Marker({
-          map: mapObject,
-          position: userLatLng
-        });
-        // Draw a circle around the user position to have an idea of the current localization accuracy
-        var circle = new google.maps.Circle({
-          center: userLatLng,
-          radius: position.coords.accuracy,
-          map: mapObject,
-          fillColor: '#0000FF',
-          fillOpacity: 0.5,
-          strokeColor: '#0000FF',
-          strokeOpacity: 1.0
-        });
-        mapObject.fitBounds(circle.getBounds());
-      }
+////////////////////////////////////////////
 
-      function geolocationError(positionError) {
-        document.getElementById("error").innerHTML += "Error: " + positionError.message + "<br />";
-      }
 
-      function geolocateUser() {
-        // If the browser supports the Geolocation API
-        if (navigator.geolocation)
-        {
-          var positionOptions = {
-            enableHighAccuracy: true,
-            timeout: 10 * 1000 // 10 seconds
-          };
-          navigator.geolocation.getCurrentPosition(geolocationSuccess, geolocationError, positionOptions);
-        }
-        else
-          document.getElementById("error").innerHTML += "Your browser doesn't support the Geolocation API";
-      }
-
-      window.onload = geolocateUser;
     </script>
+
+
+
+
     <style type="text/css">
       #map {
         width: 500px;

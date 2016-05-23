@@ -3,12 +3,8 @@
 <h1><%= @bored.id %></h1>
 
   <p>
-  <strong>Address:</strong>
+  <strong>Coordinates:</strong>
   <p>
-  <%= @bored.latitude %>
-  <%= @bored.longitude %>
-
-    <p>
     <% if @bored.location.nil? == false %>
     <%= @bored.location %>
     <% end %>

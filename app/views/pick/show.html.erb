@@ -1,0 +1,41 @@
+<h1><%= @result.name %></h1>
+<div class="background" style="background-image: url(<%=@result.image_url.gsub('ms.jpg', 'o.jpg')%>);">
+</div>
+<p>
+<div>
+  <p>
+  <strong>Rating:</strong> <%= @result.rating %> out of 5, based on <%= @result.review_count %> reviews.
+  <p>
+  <strong>Hot take:</strong> <%= @result.snippet_text %>
+  <p>
+  <strong>Phone:</strong> <%= @result.display_phone %>
+  <p>
+  <strong>Address:</strong> <%= @result.location.display_address.join(', ') %>
+<p>
+  <a href="<%= @result.url %>" target="_blank"><strong>Details</strong></a> |
+  <!-- <a href="https://www.google.com/maps/dir/My+location/<%= @result.location.display_address.join(',+') %>" target="_blank"><strong>Take me there!</strong></a> -->
+  <strong><%= link_to "Take me there!", directions_path(destination_address: @result.location.display_address.join(',+'), destinationLatLng: "#{@result.location.coordinate.latitude}, #{@result.location.coordinate.longitude}") %></strong>
+
+  <% if current_user %>
+  <!-- | -->
+  <!-- <strong><% link_to "Don't suggest this again", attractions_path(attraction: { yelp_id: @result.id, flag: false, location: [@result.location.coordinate.latitude, @result.location.coordinate.longitude] }), method: :post %></strong> -->
+  |
+  <strong><%= link_to "Save for later", attractions_path(attraction: {
+    yelp_id: @result.id,
+    flag: true,
+    latitude: @result.location.coordinate.latitude,
+    longitude: @result.location.coordinate.longitude,
+    # address: @result.location.display_address.join(', '),
+    location: [@result.location.coordinate.latitude, @result.location.coordinate.longitude]
+    }), method: :post %></strong>
+  <% end %>
+<p>
+  <% if (params[:i]).to_i > 1 %>
+  <%= link_to fa_icon('arrow-left', text: 'Back'), pick_path((params[:i]).to_i - 1), class: 'btn btn-sm btn-default' %>
+  <% end %>
+  <% if (params[:i]).to_i > 1 && (params[:i]).to_i < 6 %>
+  |
+  <% end %>
+  <% if (params[:i]).to_i < 6 %>
+  <%= link_to fa_icon('arrow-right', text: 'Next'), pick_path((params[:i]).to_i + 1), class: 'btn btn-sm btn-default' %> <!-- need to add a safety to prevent +6 -->
+  <% end %>

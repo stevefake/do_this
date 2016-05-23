@@ -16,7 +16,13 @@
 <p>
   <a href="<%= @result.url %>" target="_blank"><strong>Details</strong></a> |
   <a href="https://www.google.com/maps/dir/My+location/<%= @result.location.display_address.join(',+') %>" target="_blank"><strong>Take me there!</strong></a>
-<!-- <a href="/direction">Take me there!</a> -->
+  |
+  <% if current_user %>
+  <strong><%= link_to "Don't suggest this again", boreds_path(bored: { yelp_id: @result.id, location: [@result.location.coordinate.latitude, @result.location.coordinate.longitude] }), method: :post %></strong>
+  |
+  <strong><%= link_to "Save for later", boreds_path(bored: { yelp_id: @result.id, location: [@result.location.coordinate.latitude, @result.location.coordinate.longitude] }), method: :post %></strong>
+  <% end %>
+
 <p>
   <%= link_to fa_icon('arrow-left', text: 'Back'), hungry_path(params[:id].to_i - 1), class: 'btn btn-sm btn-default' %>
   |

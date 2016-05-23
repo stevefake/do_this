@@ -5,30 +5,26 @@
 <table>
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Rating</th>
-      <th>Reviews count</th>
-      <th>Image url</th>
-      <th>Snippet text</th>
+      <th>Yelp ID</th>
+      <th>Flag (saved=true, rejected=false)</th>
       <th>Location</th>
-      <th>Yelp</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
       <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
-    <% @boreds.each do |bored| %>
+    <% @attractions.each do |attraction| %>
       <tr>
-        <td><%= bored.name %></td>
-        <td><%= bored.rating %></td>
-        <td><%= bored.reviews_count %></td>
-        <td><%= bored.image_url %></td>
-        <td><%= bored.snippet_text %></td>
-        <td><%= bored.location %></td>
-        <td><%= bored.yelp_id %></td>
-        <td><%= link_to 'Show', bored %></td>
-        <td><%= link_to 'Edit', edit_bored_path(bored) %></td>
-        <td><%= link_to 'Destroy', bored, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= attraction.yelp_id %></td>
+        <td><%= attraction.flag %></td>
+        <td><%= attraction.location %></td>
+        <td><%= attraction.latitude %></td>
+        <td><%= attraction.longitude %></td>
+        <td><%= link_to 'Show', attraction %></td>
+        <td><%= link_to 'Edit', edit_attraction_path(attraction) %></td>
+        <td><%= link_to 'Destroy', attraction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -36,4 +32,4 @@
 
 <br>
 
-<%= link_to 'New Bored', new_bored_path %>
+<%= link_to 'New Bored', new_attraction_path %>

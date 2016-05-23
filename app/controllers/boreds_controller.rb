@@ -65,7 +65,7 @@ class BoredsController < ApplicationController
     @bored = Bored.new(bored_params)
 
     respond_to do |format|
-      
+
       if @bored.save
         format.html { redirect_to @bored, notice: 'Attraction was successfully saved.' }
         format.json { render json: @bored, status: :created }
@@ -93,6 +93,7 @@ class BoredsController < ApplicationController
   # DELETE /boreds/1
   # DELETE /boreds/1.json
   def destroy
+    @bored = Bored.find(params[:id])
     @bored.destroy
     respond_to do |format|
       format.html { redirect_to boreds_url }

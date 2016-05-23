@@ -1,0 +1,55 @@
+class PickController < ApplicationController
+
+  def show
+    session[:coordinates] = {
+      latitude: (params['latitude'] || session['coordinates']['latitude']).to_f,
+      longitude: (params['longitude'] || session['coordinates']['longitude']).to_f
+    }
+    # params[:i] = params[:i].to_i - 1
+    session[:choice] = { term: params['term'] || session['choice']['term'], limit: 6 } #limit: params[:i], offset: 1
+    @results = Yelp.client.search_by_coordinates(session[:coordinates], session[:choice])
+    index = params[:i].to_i - 1
+
+    nearbys = Attraction.near(session[:coordinates].values)
+    if nearbys.nil? == false # && flag
+      flash[:notice] = 'You are near one of your saved destinations!'
+    # elsif nearbys.nil? == false && flag == false
+    #   session[:choice] = { term: params['term'] || session['choice']['term'], limit: 6, offset: 1 }
+    #   where nearbys.yelp_id == attraction.yelp_id, offset 1
+    end
+    @result = @results.businesses[index] #.first
+  end
+end
+
+
+# returns Geocoder::Result object
+# result = request.location
+# Venue.near("Billings, MT")
+
+
+# psuedo code show method that filters out results user has rejected
+# def flagged
+#   if @result.yelp_id == Attraction.find(params[:yelp_id])
+#     @attraction = Attraction.find(params[:yelp_id])
+#     if @attraction.flag == true
+#       render notify
+#     else
+#       session[:choice] = { term: params['term'] || session['choice']['term'], limit: 6, offset: 1 }
+#     end
+#     @results = Yelp.client.search_by_coordinates(session[:coordinates], session[:choice])
+#     index = params[:i].to_i - 1
+#     @result = @results.businesses[index]
+#   end
+# end
+
+# def show
+#   session[:coordinates] = {
+#     latitude: (params['latitude'] || session['coordinates']['latitude']).to_f,
+#     longitude: (params['longitude'] || session['coordinates']['longitude']).to_f
+#   }
+#   flagged
+#   session[:choice] = { term: params['term'] || session['choice']['term'], limit: 6 } #, offset: 1
+#   @results = Yelp.client.search_by_coordinates(session[:coordinates], session[:choice])
+#   index = params[:i].to_i - 1
+#   @result = @results.businesses[index]
+# end
