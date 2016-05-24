@@ -10,13 +10,13 @@ class PickController < ApplicationController
     @results = Yelp.client.search_by_coordinates(session[:coordinates], session[:choice])
     index = params[:i].to_i - 1
 
-    nearbys = Attraction.near(session[:coordinates].values)
-    if (nearbys != '#<ActiveRecord::Relation []>') #== nil # && flag
-      flash[:notice] = 'You are near one of your saved destinations!'
+    # nearbys = Attraction.near(session[:coordinates].values)
+    # if (nearbys != '#<ActiveRecord::Relation []>') #== nil # && flag
+    #   flash[:notice] = 'You are near one of your saved destinations!'
     # elsif nearbys.nil? == false && flag == false
     #   session[:choice] = { term: params['term'] || session['choice']['term'], limit: 6, offset: 1 }
     #   where nearbys.yelp_id == attraction.yelp_id, offset 1
-    end
+    # end
     @result = @results.businesses[index] #.first
   end
 end
