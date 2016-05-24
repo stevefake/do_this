@@ -1,32 +1,28 @@
 <h1>DoThis!</h1>
 <p>Are you bored, or hungry?</p>
-<script type="text/javascript" src='assets/application.js'></script>
 
-
-<% fa_icon("spinner spin") %>
 <div class="col-lg-2">
-  <!-- <div class="table-responsive"> -->
-    <div class="form-group">
-      <div>
-        <%= form_tag(attractions_pick_path, method: "get") do %> <!-- attractions_pick_path -->
-          <%= hidden_field_tag(:term, "attractions") %>
-          <%= hidden_field_tag :latitude %>
-          <%= hidden_field_tag :longitude %>
-          <%= submit_tag :Bored, class: 'btn btn-success btn-block', disabled: true %>
-        <% end %>
-      </div>
-    </div>
-    <div class="second-button">
-      <div class="form-group">
-        <div>
-          <%= form_tag(attractions_pick_path, method: "get") do %>
-            <%= hidden_field_tag(:term, "food") %>
-            <%= hidden_field_tag :latitude %>
-            <%= hidden_field_tag :longitude %>
-            <%= submit_tag("Hungry", class: 'btn btn-primary btn-block', disabled: true) %>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  <!-- </div> -->
+  <div class="form-group">
+    <%= form_tag(attractions_pick_path, method: "get") do %>
+      <%= hidden_field_tag :term, "attractions" %>
+      <%= hidden_field_tag :latitude, nil, class: 'latitude' %>
+      <%= hidden_field_tag :longitude, nil, class: 'longitude' %>
+      <%= submit_tag :Bored, class: 'btn btn-success btn-block', style: "display: none;" %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= form_tag(attractions_pick_path, method: "get") do %>
+      <%= hidden_field_tag :term, "food" %>
+      <%= hidden_field_tag :latitude, nil, class: 'latitude' %>
+      <%= hidden_field_tag :longitude, nil, class: 'longitude' %>
+      <%= submit_tag("Hungry", class: 'btn btn-primary btn-block', style: "display: none;") %>
+    <% end %>
+  </div>
+</div>
+
+detect_nearbys
+
+<div class="pending-geolocation">
+  <%= fa_icon("spinner spin", text: "Detecting your location") %>
 </div>

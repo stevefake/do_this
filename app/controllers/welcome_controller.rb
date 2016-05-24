@@ -2,6 +2,18 @@ class WelcomeController < ApplicationController
   def index
   end
 
+  def detect_nearbys
+    session[:coordinates] = {
+      latitude: (params['latitude'] || session['coordinates']['latitude']).to_f,
+      longitude: (params['longitude'] || session['coordinates']['longitude']).to_f
+    }
+    nearbys = Attraction.near(session[:coordinates].values)
+    if (nearbys != '#<ActiveRecord::Relation []>') #== nil # && flag
+      flash[:notice] = "You are near one of your saved destinations! #{nearbys}"
+    end
+  end
+
+
   def search_db
     #   # @hungry = Hungry.find(params[:id])  # so that's how i'd pass in the :id from the db
 end
