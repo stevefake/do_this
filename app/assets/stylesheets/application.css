@@ -137,18 +137,18 @@ div[style~="background-image"] {
   /*margin-left:-20px; /* stopgap fix of undwanted indentation of 'hungry' button */*/
  }
 
- .footer {
-   position: relative;
-   margin-top: -150px; /* negative value of footer height */
-   height: 150px;
-   clear:both;
-   padding-top:20px;
- }
+ /*.footer {*/
+   /*position: relative;*/
+   /*margin-top: -150px; /* negative value of footer height */
+   /*height: 150px;*/
+   /*clear:both;*/
+   /*padding-top:20px;*/
+ /*}*/
 
- #map_canvas {
+ /*#map_canvas {
    height: 300px;
    width: 600px;
- }
+ }*/
 
  #control_container {
    margin: 20px;
