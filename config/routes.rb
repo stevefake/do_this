@@ -1,29 +1,16 @@
 Rails.application.routes.draw do
 
   get 'users/new'
-
-  # post "/search/:id", :to => "welcome#search"
-  # You should not use the `match` method in your router without specifying an HTTP method.
-  # If you want to expose your action to both GET and POST, add `via: [:get, :post]` option.
-  # If you want to expose your action to GET, use `get` in the router:
-  #   Instead of: match "controller#action"
-  #   Do: get "controller#action"
-
   resources :sessions
   get "pick/:i" => "pick#show" # "attractions#show"
   get "attractions/pick" => "pick#show"
-  # get "/boreds/:id", to: "boreds#show"
-  # get "/hungries/:id", to: "hungries#show"
   resources :pick
   resources :attractions
   resources :directions
-  # resources :boreds
-  # resources :hungries
   devise_for :users
 
   get "/welcome/:id", to: "welcome#show"
   resources :welcome
-  # post '/search' => 'welcome#search'
 
   root 'welcome#index'
 

@@ -27,33 +27,6 @@ ActiveRecord::Schema.define(version: 20160523031220) do
     t.float    "longitude"
   end
 
-  create_table "boreds", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "rating"
-    t.integer  "reviews_count"
-    t.string   "image_url"
-    t.string   "snippet_text"
-    t.point    "location"
-    t.string   "yelp_id"
-    t.string   "address"
-    t.float    "latitude"
-    t.float    "longitude"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
-  create_table "hungries", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "rating"
-    t.integer  "reviews_count"
-    t.string   "image_url"
-    t.string   "snippet_text"
-    t.point    "location"
-    t.string   "yelp_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
