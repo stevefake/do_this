@@ -6,7 +6,7 @@ class PickController < ApplicationController
       longitude: (params['longitude'] || session['coordinates']['longitude']).to_f
     }
     # params[:i] = params[:i].to_i - 1
-    session[:choice] = { term: params['term'] || session['choice']['term'], limit: 6 } #limit: params[:i], offset: 1
+    session[:choice] = { term: params['term'] || session['choice']['term'], limit: 6, radius_filter: 1000 } #limit: params[:i], offset: 1
     @results = Yelp.client.search_by_coordinates(session[:coordinates], session[:choice])
     index = params[:i].to_i - 1
 

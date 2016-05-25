@@ -33,9 +33,9 @@
   <% if (params[:i]).to_i > 0 %>
   <%= link_to fa_icon('arrow-left', text: 'Back'), pick_path((params[:i]).to_i - 1), class: 'btn btn-sm btn-default' %>
   <% end %>
-  <% if (params[:i]).to_i > 0 && (params[:i]).to_i < 6 %>
+  <% if (params[:i]).to_i > 0 && (params[:i]).to_i < 5 %>
   |
   <% end %>
-  <% if (params[:i]).to_i < 6 %>
+  <% if (params[:i]).to_i < 5 %>
   <%= link_to fa_icon('arrow-right', text: 'Next'), pick_path((params[:i]).to_i + 1), class: 'btn btn-sm btn-default' %> <!-- need to add a safety to prevent +6 -->
   <% end %>
