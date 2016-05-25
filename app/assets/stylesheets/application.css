@@ -23,11 +23,11 @@
  }
 
 .background {
-    height: 200px;
+    height: 300px;
     opacity: 0.3;
-    margin-top: -90px;
-    margin-left: -110px;
-    margin-right: -440px;
+    margin-top: -130px; /* -90px; */
+    margin-left: -700px; /* -110px; */
+    margin-right: -450px;
     padding-left: 100px;
     padding-right: 100px;
     padding-top: 40px;
@@ -52,4 +52,56 @@
 
 .navbar-nav {
   margin-left: 15px;
+}
+
+.form-group:last-child {
+  margin-top: -15px;
+}
+
+.footer {
+  margin-top: 20px;
+}
+
+/* Large desktop */
+@media (min-width: 1200px) {
+
+}
+
+@media (min-width: 980px) and (max-width: 1199px) {
+  .container {
+    width: 250px;
+  }
+  .col-lg-2 {
+    width: 200px;
+  }
+}
+
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) {
+  .container {
+    width: 250px;
+  }
+  .col-lg-2 {
+    width: 200px;
+  }
+}
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+  .container {
+    width: 250px;
+  }
+  .col-lg-2 {
+    width: 200px;
+  }
+}
+
+/* Landscape phones and down */
+@media (max-width: 480px) {
+  .container {
+    width: 250px;
+  }
+  .col-lg-2 {
+    width: 200px;
+  }
 }

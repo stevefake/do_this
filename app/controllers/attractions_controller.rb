@@ -1,14 +1,5 @@
 class AttractionsController < ApplicationController
 
-  # In Any Rack-Based Framework
-  # Detect Location of HTTP Request
-  # Get current user's city and country (using IP address). A location method is
-  # added to the standard Rack::Request which returns a Geocoder::Result object:
-  # Rails controller or Sinatra app
-  # city = request.location.city
-  # country = request.location.country_code
-
-
   def index
     @attractions = Attraction.all
 
@@ -17,17 +8,6 @@ class AttractionsController < ApplicationController
       format.json { render json: @attractions }
     end
   end
-
-  # def search
-  #   find where @result.yelp_id == @attraction = Attraction.find(params[:yelp_id])
-  #
-  #   @results { offset: 1 }
-  #
-  #   respond_to do |format|
-  #     format.html # show.html.erb
-  #     format.json { render json: @attraction }
-  #   end
-  # end
 
  # GET /attractions/1
  # GET /attractions/1.json
@@ -38,7 +18,6 @@ class AttractionsController < ApplicationController
      format.html # show.html.erb
      format.json { render json: @attraction }
    end
-  #  nearbys = Attraction.near(cords)
  end
 
   # GET /attractions/new

@@ -18,5 +18,7 @@ class PickController < ApplicationController
     #   where nearbys.yelp_id == attraction.yelp_id, offset 1
     # end
     @result = @results.businesses[index] #.first
+    # redirect_to("/pick/#{(params[:i]).to_i}")
+    # redirect_to 'show'
   end
 end

@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   get 'users/new'
   resources :sessions
-  get "pick/:i" => "pick#show" # "attractions#show"
+  get "pick/:i" => "pick#show" #, as: 'pick' # "attractions#show"
   get "attractions/pick" => "pick#show"
   resources :pick
   resources :attractions
