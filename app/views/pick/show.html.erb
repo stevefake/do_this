@@ -12,9 +12,8 @@
   <p>
   <strong>Address:</strong> <%= @result.location.display_address.join(', ') %>
 <p>
-  <a href="<%= @result.url %>" target="_blank"><strong>Details</strong></a> |
-  <!-- <a href="https://www.google.com/maps/dir/My+location/<%= @result.location.display_address.join(',+') %>" target="_blank"><strong>Take me there!</strong></a> -->
-  <strong><%= link_to "Take me there!", directions_path(destination_address: @result.location.display_address.join(',+'), destinationLatLng: "#{@result.location.coordinate.latitude}, #{@result.location.coordinate.longitude}") %></strong>
+  <a href="<%= @result.url %>" target="_blank"><strong>View on Yelp</strong></a> |
+  <strong><%= link_to "Take me there!", directions_path(destination_name: @result.name, destination_address: @result.location.display_address.join(',+'), destinationLatLng: "#{@result.location.coordinate.latitude}, #{@result.location.coordinate.longitude}") %></strong>
 
   <% if current_user %>
   <!-- | -->

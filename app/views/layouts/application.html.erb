@@ -39,7 +39,8 @@
     <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAPS']}" %>
   </head>
   <body>
-
+  <div class="wrapper">
+    <!-- <p> -->
     <div class="navbar navbar-default navbar-static-top">
       <div class="container">
         <div style="display:inline"><a class="navbar-brand">
@@ -65,10 +66,18 @@
           <%= yield %>
         </div>
       </div>
-      <footer class="footer">
+    </div>
+    <!-- </p> -->
+    <div class="push"></div>
+  </div>
+
+    <div class="container">
+      <div class="footer">
+      <!-- <footer class="footer"> -->
         <p>&copy; DoThis! 2016</p>
         <p>Powered by <i class="fa fa-google" aria-hidden="true"></i>oogle Maps and <i class="fa fa-yelp" aria-hidden="true"></i>Yelp</p>
-      </footer>
+      <!-- </footer> -->
+      </div>
     </div>
 
   </body>

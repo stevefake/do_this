@@ -10,7 +10,9 @@
       <%= submit_tag :Bored, class: 'btn btn-success btn-block', style: "display: none;" %>
     <% end %>
   </div>
-
+  <div class="pending-geolocation">
+    <%= fa_icon("spinner spin", text: "Detecting your location") %>
+  </div>
   <div class="form-group">
     <%= form_tag(attractions_pick_path, method: "get") do %>
       <%= hidden_field_tag :term, "food" %>
@@ -19,8 +21,4 @@
       <%= submit_tag("Hungry", class: 'btn btn-primary btn-block', style: "display: none;") %>
     <% end %>
   </div>
-</div>
-
-<div class="pending-geolocation">
-  <%= fa_icon("spinner spin", text: "Detecting your location") %>
 </div>

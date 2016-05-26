@@ -13,3 +13,5 @@ information about the places suggested.
 The user is also able to create an account, allowing them to save suggestions
 for later. The app uses the Geocode Gem to do an ActiveRecord search of the
 Postgres db to notify the user when they are near one of their saved suggestions.
+
+![Loading user location](app/assets/images/Screenshot_2016-05-26_11.54.40.png?raw=true "Geolocating")
