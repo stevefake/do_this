@@ -9,7 +9,7 @@ end
 describe 'products/_product.html.erb' do
   context 'when the product has a url' do
     it 'displays the url' do
-      assign(:product, build(:product, url: 'http://example.com')
+      assign(:product, build(:product, url: 'http://example.com'))
 
       render
 
@@ -19,7 +19,7 @@ describe 'products/_product.html.erb' do
 
   context 'when the product url is nil' do
     it "displays 'None'" do
-      assign(:product, build(:product, url: nil)
+      assign(:product, build(:product, url: nil))
 
       render
 
