@@ -28,6 +28,10 @@ end
 group :test, :development do
   gem 'ffaker'
   gem 'rspec-rails', '~> 3.0'
+  gem "factory_girl_rails"
+  gem "capybara"
+  # gem "capybara-webkit"
+  gem "guard-rspec"
 end
 
 group :production do
