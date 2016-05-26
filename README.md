@@ -22,9 +22,11 @@ restaurant suggestion:
 ![Loading user location](app/assets/images/Screenshot_2016-05-26_11.55.12.png?raw=true "Selection Screen")
 
 A sample activity suggestion:
+
 ![Loading user location](app/assets/images/Screenshot_2016-05-26_11.55.49.png?raw=true "Bored Result")
 
 A sample food suggestion:
+
 ![Loading user location](app/assets/images/Screenshot_2016-05-26_11.56.53.png?raw=true "Hungry Result")
 
 The map indicating walking directions from the user's location to the destination:
