@@ -15,3 +15,9 @@ for later. The app uses the Geocode Gem to do an ActiveRecord search of the
 Postgres db to notify the user when they are near one of their saved suggestions.
 
 ![Loading user location](app/assets/images/Screenshot_2016-05-26_11.54.40.png?raw=true "Geolocating")
+
+![Loading user location](app/assets/images/Screenshot_2016-05-26_11.55.12.png?raw=true "Hungry Result")
+
+![Loading user location](app/assets/images/Screenshot_2016-05-26_11.55.49.png?raw=true "Bored Result")
+
+![Loading user location](app/assets/images/Screenshot_2016-05-26_11.56.53.png?raw=true "Walking Directions")
